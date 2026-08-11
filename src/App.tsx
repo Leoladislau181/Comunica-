@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Chat from './components/Chat';
 import Admin from './components/Admin';
+import Register from './components/Register';
 
 const ProtectedRoute = ({ children, requireAdmin }: { children: React.ReactNode, requireAdmin?: boolean }) => {
   const { user, profile, loading } = useAuth();
@@ -24,6 +25,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
+      <Route path="/register" element={user ? <Navigate to="/" replace /> : <Register />} />
       <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path="/chat/:conversationId" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
       <Route path="/admin" element={<ProtectedRoute requireAdmin><Admin /></ProtectedRoute>} />

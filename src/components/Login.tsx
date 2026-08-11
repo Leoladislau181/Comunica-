@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
-import { LogIn } from 'lucide-react';
+import { LogIn, UserPlus } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,18 +73,29 @@ export default function Login() {
             />
           </div>
           
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex items-center justify-center gap-3 bg-blue-600 text-white text-3xl font-black py-6 px-8 rounded-3xl hover:bg-blue-700 border-b-8 border-blue-800 active:border-b-0 active:translate-y-2 transition-all disabled:opacity-50 mt-8 uppercase shadow-xl"
-          >
-            {loading ? 'ENTRANDO...' : (
-              <>
-                <LogIn size={36} />
-                ENTRAR
-              </>
-            )}
-          </button>
+          <div className="flex flex-col gap-4 mt-8">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex items-center justify-center gap-3 bg-blue-600 text-white text-3xl font-black py-6 px-8 rounded-3xl hover:bg-blue-700 border-b-8 border-blue-800 active:border-b-0 active:translate-y-2 transition-all disabled:opacity-50 uppercase shadow-xl"
+            >
+              {loading ? 'ENTRANDO...' : (
+                <>
+                  <LogIn size={36} />
+                  ENTRAR
+                </>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate('/register')}
+              disabled={loading}
+              className="w-full flex items-center justify-center gap-3 bg-slate-100 text-slate-700 text-xl font-black py-4 px-8 rounded-3xl hover:bg-slate-200 border-4 border-slate-300 active:translate-y-1 transition-all disabled:opacity-50 uppercase shadow-md mt-2"
+            >
+              <UserPlus size={24} />
+              CRIAR CONTA
+            </button>
+          </div>
         </form>
       </div>
     </div>
